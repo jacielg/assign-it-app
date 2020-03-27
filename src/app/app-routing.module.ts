@@ -4,6 +4,7 @@ import { DefaultComponent } from './layouts/default/default.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SectionsComponent } from './modules/sections/sections.component';
 import { NoSectionsComponent } from './modules/no-sections/no-sections.component';
+import { AssignedSectionsComponent } from './modules/assigned-sections/assigned-sections.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'sections',
       component: SectionsComponent
+    },
+    {
+      path: 'assigned-sections',
+      component: AssignedSectionsComponent
     },
     {
       path: 'no-sections',

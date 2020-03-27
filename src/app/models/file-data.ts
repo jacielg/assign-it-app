@@ -1,4 +1,4 @@
-export class Sections {
+export class FileData {
     seccion: string;
     materia: string;
     anio: number;

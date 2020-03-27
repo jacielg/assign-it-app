@@ -1,22 +1,34 @@
-<h1 matHeader>Add Sections</h1>
+<h1 matHeader>
+    <mat-icon>assignment_turned_in</mat-icon>
+    Sections
+</h1>
+<div fxLayout="row" fxLayoutAlign="start center">
+    <button type="button" mat-raised-button (click)="fileInput.click()"><i class='fa fa-cloud-upload fa-fw'></i> Choose
+        File</button>
+    <input hidden (change)="import($event)" #fileInput type="file" id="file">
+    <label id='fileLabel' for="files">
+        <i *ngIf="inputLabel != startingInputLabel" class="fas fa-file-excel"></i>
+        {{inputLabel}}
+    </label>
+    <button type="button" mat-raised-button (click)="downloadTemplate()">
+        <i class="fas fa-cloud-download-alt"></i>
+        Download Template
+    </button>
+</div>
 
-<button type="button" mat-raised-button (click)="fileInput.click()"><i class='fa fa-cloud-upload fa-fw'></i> Choose
-    File</button>
-<input hidden (change)="import($event)" #fileInput type="file" id="file">
-<label id='fileLabel' for="files">
-    <i *ngIf="inputLabel != startingInputLabel" class="fas fa-file-excel"></i>
-    {{inputLabel}}
-</label>
-<button type="button" mat-raised-button (click)="downloadTemplate()"><i class="fas fa-cloud-download-alt"></i> Download
-    Template</button>
-
-
-<ngx-datatable style="margin-top: 15px;" #table class='material' [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="40"
-    [limit]="10" [rows]="data">
+<ngx-datatable style="margin-top: 15px;" #table class='material' [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [limit]="10" [rows]="data">
     <ngx-datatable-column [maxWidth]="150" name="Sección" prop="seccion"></ngx-datatable-column>
     <ngx-datatable-column [maxWidth]="150" name="Materia" prop="materia"></ngx-datatable-column>
     <ngx-datatable-column [maxWidth]="130" name="Año" prop="anio"></ngx-datatable-column>
-    <ngx-datatable-column [width]="80" name="Maestro" prop="maestro"></ngx-datatable-column>
-    <ngx-datatable-column [width]="30" name="Capacidad" prop="capacidad"></ngx-datatable-column>
-    <ngx-datatable-column [width]="30" name="Sede" prop="sede"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="450" name="Maestro" prop="maestro"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="150" name="Capacidad" prop="capacidad"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="150" name="Sede" prop="sede"></ngx-datatable-column>
 </ngx-datatable>
+
+<div fxLayout="row" fxLayoutAlign="start" style="margin-top: 10px;">
+    <button [disabled]="!isSectionAdded" type="button" mat-raised-button color="primary" (click)="assignSections()">
+        <i class="fas fa-tasks"></i>
+        Assign Sections
+    </button>
+</div>

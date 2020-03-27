@@ -1,1 +1,21 @@
-<p>no-sections works!</p>
+<h1 matHeader>
+    <mat-icon>assignment_late</mat-icon>
+    Not Assigned Sections
+</h1>
+
+<div fxLayout="column">
+    <div fxLayoutAlign="start">
+        <button type="button" mat-raised-button color="primary" (click)="showNotAssignedSections()">
+            <i class="fas fa-file-download"></i>
+            Load Not Assigned Sections
+        </button>
+    </div>
+</div>
+
+<ngx-datatable style="margin-top: 15px;" #table class='material' [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [limit]="10" [rows]="data">
+    <ngx-datatable-column [maxWidth]="150" name="Sección" prop="seccion"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="180" name="Materia" prop="materia"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="180" name="Año" prop="anio"></ngx-datatable-column>
+    <ngx-datatable-column name="Maestro" prop="maestro"></ngx-datatable-column>
+</ngx-datatable>

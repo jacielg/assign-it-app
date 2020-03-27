@@ -1,0 +1,22 @@
+<h1 matHeader>
+    <mat-icon>assignment_returned</mat-icon>
+    Assigned Sections
+</h1>
+
+<div fxLayout="row" fxLayoutAlign="start" style="margin-top: 10px;">
+    <button type="button" mat-raised-button color="primary" (click)="showAssignedSections()">
+        <i class="fas fa-file-download"></i>
+        Load Assigned Sections
+    </button>
+</div>
+
+<ngx-datatable style="margin-top: 15px;" #tableNew class='material' [columnMode]="'force'" [headerHeight]="50"
+    [footerHeight]="50" [rowHeight]="40" [limit]="10" [rows]="assignedSections">
+    <ngx-datatable-column [maxWidth]="150" name="Sección" prop="seccion"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="150" name="Materia" prop="materia"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="130" name="Numero de Aula" prop="numeroAula"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="130" name="Modalidad" prop="modalidad"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="180" name="Capacidad" prop="horarios"></ngx-datatable-column>
+    <ngx-datatable-column [maxWidth]="130" name="Año" prop="anio"></ngx-datatable-column>
+    <ngx-datatable-column name="Maestro" prop="maestro"></ngx-datatable-column>
+</ngx-datatable>

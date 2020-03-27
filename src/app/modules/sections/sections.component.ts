@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-import { Sections } from 'src/app/models/section';
+import { FileData } from '../../models/file-data';
+import { Sections } from '../../models/sections';
 import { SectionsService } from '../../services/sections.service';
-//type AOA = any[][];
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-sections',
   templateUrl: './sections.component.html',
   styleUrls: ['./sections.component.scss']
 })
 export class SectionsComponent implements OnInit {
-  //srcResult: any;
+  public isSectionAdded: boolean = false;
+  public durationInSeconds: number = 5;
   public inputLabel: string;
-  public data: Sections[] = [];
+  public data: FileData[] = [];
 
-  constructor(private sectionService: SectionsService) { }
+  constructor(private sectionsService: SectionsService, private snackBar: MatSnackBar) { }
 
   ngOnInit() { }
-
 
   import(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -38,10 +38,11 @@ export class SectionsComponent implements OnInit {
   }
 
   importedData(dataImported: any[]) {
-    this.data = new Array<Sections>();
+    this.data = new Array<FileData>();
     if (dataImported) {
+      this.isSectionAdded = true;
       dataImported.forEach(item => {
-        const newItemImported = new Sections();
+        const newItemImported = new FileData();
         newItemImported.seccion = item.Seccion;
         newItemImported.materia = item.Materia;
         newItemImported.anio = item.Anio;
@@ -50,17 +51,26 @@ export class SectionsComponent implements OnInit {
         newItemImported.sede = item.Sede;
         this.data.push(newItemImported);
       });
-      // if (this.data) {
-      //   this.sectionService.createSection(this.data).subscribe(() => {
-      //     alert('Success');
-      //   })
-      // }
+      this.snackBar.open('Sections Loaded', 'Dismiss', {
+        duration: 3000
+      });
+    }
+    return this.data;
+  }
+
+  assignSections() {
+    if (this.data) {
+      this.sectionsService.createSection(this.data).subscribe(() => {
+        this.snackBar.open('Sections Added', 'Dismiss', {
+          duration: 3000
+        });
+      })
     }
   }
 
   downloadTemplate() {
-    const template = new Array<Sections>();
-    const section: Sections = new Sections();
+    const template = new Array<FileData>();
+    const section: FileData = new FileData();
     section.seccion = '';
     section.materia = '';
     section.anio = 0;
@@ -74,5 +84,4 @@ export class SectionsComponent implements OnInit {
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
     XLSX.writeFile(wb, 'SectionsTemplate.xlsx');
   }
-
 }

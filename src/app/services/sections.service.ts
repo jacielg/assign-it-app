@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Sections } from '../models/section';
+import { FileData } from '../models/file-data';
+import { Sections } from '../models/sections';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,15 @@ export class SectionsService {
 
   constructor(private http: HttpClient) { }
 
-  createSection(section: Sections[]) {
-    return this.http.post<Sections[]>(this.apiUrl + '/Add', section);
+  createSection(section: FileData[]) {
+    return this.http.post<FileData[]>(this.apiUrl + '/Add', section);
+  }
+
+  getNotAssignedSections() {
+    return this.http.get<FileData[]>(this.apiUrl + '/not-assigned');
+  }
+
+  getAssignedSections() {
+    return this.http.get<Sections[]>(this.apiUrl);
   }
 }
