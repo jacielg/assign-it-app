@@ -1,0 +1,17 @@
+<h1 matHeader>Add Sections</h1>
+
+<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+<input hidden (change)="import($event)" #fileInput type="file" id="file">
+<label id='fileLabel' for="files">
+    <i *ngIf="inputLabel == startingInputLabel" class='fa fa-cloud-upload fa-fw'></i>
+    <i *ngIf="inputLabel != startingInputLabel" class='fa fa-file-excel-o fa-fw'></i>
+    {{inputLabel}}
+</label>
+
+<!-- <table class="sjs-table">
+    <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+            {{val}}
+        </td>
+    </tr>
+</table> -->
