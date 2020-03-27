@@ -1,4 +1,4 @@
-# AssignItApp Getting Started
+# AssignItApp
 
 # Pre-reqs
 - Install [Node.js](https://nodejs.org/en/)
