@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './layouts/default/default.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SectionsComponent } from './modules/sections/sections.component';
+import { NoSectionsComponent } from './modules/no-sections/no-sections.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,6 +16,10 @@ const routes: Routes = [{
     {
       path: 'sections',
       component: SectionsComponent
+    },
+    {
+      path: 'no-sections',
+      component: NoSectionsComponent
     }]
 }];
 

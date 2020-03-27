@@ -16,8 +16,8 @@ export class SectionsComponent implements OnInit {
 
   constructor(private sectionService: SectionsService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
 
   import(evt: any) {
     const target: DataTransfer = <DataTransfer>(evt.target);
@@ -29,21 +29,16 @@ export class SectionsComponent implements OnInit {
     reader.onload = (e: any) => {
       const bstr: string = e.target.result;
       const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
-
       const wsname: string = wb.SheetNames[0];
       const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
       const data = (XLSX.utils.sheet_to_json(ws, { header: 2 }));
-      // this.fileChange.emit(data);
       this.importedData(data);
-      console.log('Import Data: ', data);
     };
     reader.readAsBinaryString(target.files[0]);
   }
 
   importedData(dataImported: any[]) {
     this.data = new Array<Sections>();
-    console.log('Imported Data: ', dataImported);
     if (dataImported) {
       dataImported.forEach(item => {
         const newItemImported = new Sections();
@@ -55,34 +50,29 @@ export class SectionsComponent implements OnInit {
         newItemImported.sede = item.Sede;
         this.data.push(newItemImported);
       });
-      if (this.data) {
-        this.sectionService.createSection(this.data).subscribe(() => {
-          alert('Success');
-        })
-      }
+      // if (this.data) {
+      //   this.sectionService.createSection(this.data).subscribe(() => {
+      //     alert('Success');
+      //   })
+      // }
     }
-    console.log('New Imported Data: ', this.data);
   }
 
-  // onFileChange(evt: any) {
-  //   /* wire up file reader */
-  //   const target: DataTransfer = <DataTransfer>(evt.target);
-  //   if (target.files.length !== 1) throw new Error('Cannot use multiple files');
-  //   const reader: FileReader = new FileReader();
-  //   reader.onload = (e: any) => {
-  //     /* read workbook */
-  //     const bstr: string = e.target.result;
-  //     const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+  downloadTemplate() {
+    const template = new Array<Sections>();
+    const section: Sections = new Sections();
+    section.seccion = '';
+    section.materia = '';
+    section.anio = 0;
+    section.maestro = '';
+    section.capacidad = 0;
+    section.sede = '';
+    template.push(section);
 
-  //     /* grab first sheet */
-  //     const wsname: string = wb.SheetNames[0];
-  //     const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-
-  //     /* save data */
-  //     this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
-  //     console.log(this.data);
-  //   };
-  //   reader.readAsBinaryString(target.files[0]);
-  // }
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(template);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'SectionsTemplate.xlsx');
+  }
 
 }
