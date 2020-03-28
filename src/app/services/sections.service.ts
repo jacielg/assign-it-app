@@ -13,7 +13,7 @@ export class SectionsService {
   constructor(private http: HttpClient) { }
 
   createSection(section: FileData[]) {
-    return this.http.post<FileData[]>(this.apiUrl + '/Add', section);
+    return this.http.post<FileData[]>(this.apiUrl + '/assign', section);
   }
 
   getNotAssignedSections() {
